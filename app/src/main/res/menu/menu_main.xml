@@ -1,0 +1,49 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="com.example.filemanager.Activity.MainActivity"
+  >
+  <item
+      android:id="@+id/changeUser"
+      android:title="@string/change_person"
+      android:icon="@drawable/change_person"
+      android:visible="true"
+      app:showAsAction="ifRoom"></item>
+  <item
+      android:id="@+id/search"
+      android:title="@string/toolbar_search"
+      app:showAsAction="ifRoom"
+      android:icon="@drawable/ic_baseline_search_24">
+  </item>
+  <item
+          android:id="@+id/select_all"
+          android:title="@string/select_all"/>
+  <item
+        android:id="@+id/paste"
+        android:title="@string/paste"/>
+  <item
+          android:id="@+id/show_ext"
+          android:title="@string/showExt"
+          android:checkable="true"/>
+
+  <item
+          android:orderInCategory="100"
+    android:title="排序"
+    app:showAsAction="never">
+    <menu>
+      <group android:checkableBehavior="single">
+        <item
+          android:id="@+id/sort_by_default"
+          android:checked="true"
+          android:title="默认排序" />
+        <item
+          android:id="@+id/sort_by_size"
+          android:title="按大小排序" />
+        <item
+          android:id="@+id/sort_by_time"
+          android:title="按时间排序" />
+      </group>
+    </menu>
+
+  </item>
+</menu>

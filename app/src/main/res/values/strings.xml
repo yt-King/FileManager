@@ -1,0 +1,24 @@
+<resources>
+  <string name="app_name">FileManager</string>
+    <!-- Strings used for fragments for navigation -->
+  <string name="title_activity_child">ChildActivity</string>
+
+  <string name="toolbar_new">新建</string>
+
+  <string name="change_person">切换用户</string>
+
+  <string name="select_all">全选</string>
+
+  <string name="paste">粘贴</string>
+
+  <string name="toolbar_search">搜索</string>
+
+  <string name="search">搜索当前文件夹</string>
+
+  <string name="showExt">显示拓展名</string>
+
+  <string name="name">请输入用户名</string>
+
+  <string name="pwd">请输入用户密码</string>
+
+</resources>
