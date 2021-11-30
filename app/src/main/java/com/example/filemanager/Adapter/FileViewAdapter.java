@@ -25,6 +25,7 @@ import com.example.filemanager.entity.FileView;
 import com.example.filemanager.Utils.ItemTouchCallBack;
 import com.example.filemanager.R;
 import com.example.filemanager.Utils.GetFilesUtils;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -219,6 +220,7 @@ public class FileViewAdapter extends RecyclerView.Adapter<FileViewAdapter.ViewHo
     mContext.setSelectModeShow(true);
     notifyDataSetChanged();
   }
+
 
   //  关闭多选模式
   public boolean leaveSelectMode() {

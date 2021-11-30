@@ -60,7 +60,7 @@
     android:background="#99FFFFFF"
     android:clickable="true"
     android:orientation="horizontal"
-    android:visibility="gone" />
+    android:visibility="invisible" />
 
   <com.github.clans.fab.FloatingActionMenu
       android:id="@+id/fab"

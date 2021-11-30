@@ -45,7 +45,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class BaseActivity extends AppCompatActivity {
-  private FloatingActionMenu fab;                     //  右下悬浮按钮
+  public FloatingActionMenu fab;                     //  右下悬浮按钮
   private LinearLayout greyCover;                     //  灰色蒙层
   public RecyclerView recyclerView;
   /** RecyclerView
@@ -241,10 +241,6 @@ public abstract class BaseActivity extends AppCompatActivity {
       bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     } else if(!isSelectMode){//设置底部栏不可见，显示悬浮按钮
       fab.setVisibility(View.VISIBLE);
-      bottomSheetLayout.setVisibility(View.GONE);
-      bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-    }else{//设置底部栏不可见，悬浮按钮也不可见，相当于禁用写功能
-      fab.setVisibility(View.GONE);
       bottomSheetLayout.setVisibility(View.GONE);
       bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
