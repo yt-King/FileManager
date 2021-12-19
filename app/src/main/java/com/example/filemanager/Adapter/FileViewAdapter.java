@@ -1,7 +1,6 @@
 package com.example.filemanager.Adapter;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -19,13 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.filemanager.Activity.BaseActivity;
-import com.example.filemanager.Activity.MainActivity;
+import com.example.filemanager.Activity.StartActivity;
 import com.example.filemanager.Utils.OpenFileUtils;
 import com.example.filemanager.entity.FileView;
 import com.example.filemanager.Utils.ItemTouchCallBack;
 import com.example.filemanager.R;
 import com.example.filemanager.Utils.GetFilesUtils;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -160,7 +158,7 @@ public class FileViewAdapter extends RecyclerView.Adapter<FileViewAdapter.ViewHo
       }
       if (file.isFolder()) {
         //  若点击的项目为文件夹，则启动新活动，展示文件夹里的内容
-        Intent intent = new Intent(v.getContext(), MainActivity.class);
+        Intent intent = new Intent(v.getContext(), StartActivity.class);
         intent.putExtra("path", file.getFile().toString());
         v.getContext().startActivity(intent);
       } else {

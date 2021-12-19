@@ -21,4 +21,7 @@
 
   <string name="pwd">请输入用户密码</string>
 
+  <string name="login">登录</string>
+
+
 </resources>

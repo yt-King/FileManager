@@ -7,4 +7,5 @@
   <color name="colorWhite">#ffffff</color>
   <color name="orange">#FFA500</color>
   <color name="orangeDark">#ffff8800</color>
+  <color name="color_minefragment_top">#0066cc</color>
 </resources>
