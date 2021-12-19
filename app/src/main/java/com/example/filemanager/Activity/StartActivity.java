@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSONObject;
 import com.example.filemanager.MyApplication;
 import com.example.filemanager.R;
+import com.example.filemanager.Utils.HttpUtil;
 import com.example.filemanager.entity.UserContract;
 import com.example.filemanager.greendao.UserContractDao;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -37,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 public class StartActivity extends BaseActivity {
-
     private static final String TAG = "MainActivity";
     private final GestureDetector gdt = new GestureDetector((GestureDetector.OnGestureListener) new  GestureListener());
 
@@ -53,60 +53,12 @@ public class StartActivity extends BaseActivity {
 //    });
     }
 
-    public void getDate() throws IOException {
-        //根据地址创建URL对象(网络访问
-        //发布文章的url)
-        URL url = new URL("http://150.158.28.238:3000/users/login");
-        HttpURLConnection conn = (HttpURLConnection)
-                //设置请求的方式
-                url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setDoInput(true);//发送POST请求必须设置允许输出
-        conn.setDoOutput(true);//发送POST请求必须设置允许输入
-        //设置请求的头
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("Charset", "utf-8");
-        String data = "";//传递的数据
-        conn.setRequestProperty("Content-Length",
-                String.valueOf(data.getBytes().length));
-        //获取输出流
-        OutputStream os = conn.getOutputStream();
-        os.write(data.getBytes());
-        os.flush();
-        //获取响应的输入流对象
-        InputStreamReader is = new InputStreamReader(conn.getInputStream());
-        BufferedReader bufferedReader = new BufferedReader(is);
-        StringBuffer strBuffer = new StringBuffer();
-        String line = null;
-        //读取服务器返回信息
-        while ((line = bufferedReader.readLine()) != null) {
-            strBuffer.append(line);
-        }
-        String result = strBuffer.toString();//接收从服务器返回的数据
-        System.out.println("收到的信息"+result);
-        JSONObject json = JSONObject.parseObject(result);
-        Map<String, Object> map = (Map<String, Object>)json;
-        System.out.println("map = " + map);
-        //关闭InputStream、关闭http连接
-        is.close();
-        conn.disconnect();
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //  进入搜索页面
         if (item.getItemId() == R.id.search) {
-            // Android 4.0 之后不能在主线程中请求HTTP请求
-            new Thread(new Runnable(){
-                @Override
-                public void run() {
-                    try {
-                        getDate();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
             Intent intent = new Intent(this, SearchActivity.class);
             intent.putExtra("path", path);
             startActivity(intent);

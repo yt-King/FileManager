@@ -13,12 +13,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.filemanager.R;
+import com.example.filemanager.Utils.HttpUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RegisterActivity extends AppCompatActivity {
+    private HttpUtil httpUtil = new HttpUtil();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @BindView(R.id.rl_registeractivity_top)
-    RelativeLayout mRlRegisteractivityTop;
-    @BindView(R.id.iv_registeractivity_back)
-    ImageView mIvRegisteractivityBack;
-    @BindView(R.id.ll_registeractivity_body)
-    LinearLayout mLlRegisteractivityBody;
     @BindView(R.id.et_registeractivity_username)
     EditText mEtRegisteractivityUsername;
     @BindView(R.id.et_registeractivity_password1)
@@ -51,31 +50,41 @@ public class RegisterActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_registeractivity_back: //返回登录页面
-                Intent intent1 = new Intent(this, loginActivity.class);
+                Intent intent1 = new Intent(this, MainActivity.class);
                 startActivity(intent1);
                 finish();
-                break;
-            case R.id.iv_registeractivity_showCode:    //改变随机验证码的生成
-                mIvRegisteractivityShowcode.setImageBitmap(Code.getInstance().createBitmap());
-                realCode = Code.getInstance().getCode().toLowerCase();
                 break;
             case R.id.bt_registeractivity_register:    //注册按钮
                 //获取用户输入的用户名、密码、验证码
                 String username = mEtRegisteractivityUsername.getText().toString().trim();
                 String password = mEtRegisteractivityPassword2.getText().toString().trim();
-                String phoneCode = mEtRegisteractivityPhonecodes.getText().toString().toLowerCase();
                 //注册验证
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(phoneCode) ) {
-                    if (phoneCode.equals(realCode)) {
-                        //将用户名和密码加入到数据库中
-                        mDBOpenHelper.add(username, password);
-                        Intent intent2 = new Intent(this, MainActivity.class);
-                        startActivity(intent2);
-                        finish();
-                        Toast.makeText(this,  "验证通过，注册成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "验证码错误,注册失败", Toast.LENGTH_SHORT).show();
-                    }
+                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+                    //将用户名和密码加入到数据库中
+                    System.out.println("username = " + username);
+                    System.out.println("password = " + password);
+                    Map usermap = new HashMap();
+                    usermap.put("username",username);
+                    usermap.put("pwd",password);
+                    // Android 4.0 之后不能在主线程中请求HTTP请求
+                    new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            try {
+                                Map resmap = httpUtil.getLoginDate(usermap);
+                                System.out.println("resmap = " + resmap);
+                                if(resmap.get("code").equals("200")){
+//                                    match[0] =true;
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                    Intent intent2 = new Intent(this, MainActivity.class);
+                    startActivity(intent2);
+                    finish();
+                    Toast.makeText(this,  "验证通过，注册成功", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "未完善信息，注册失败", Toast.LENGTH_SHORT).show();
                 }

@@ -57,9 +57,9 @@ dependencies {
     implementation 'androidx.slice:slice-builders:1.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.74'
-    implementation 'com.jakewharton:butterknife:8.8.1'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
 
     testImplementation 'junit:junit:4.13.2'
