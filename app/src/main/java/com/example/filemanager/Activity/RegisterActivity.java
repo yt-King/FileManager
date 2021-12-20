@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = mEtRegisteractivityPassword2.getText().toString().trim();
                 //注册验证
                 if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+                    final boolean[] match = {false};
                     //将用户名和密码加入到数据库中
                     System.out.println("username = " + username);
                     System.out.println("password = " + password);
@@ -67,20 +68,32 @@ public class RegisterActivity extends AppCompatActivity {
                     usermap.put("username",username);
                     usermap.put("pwd",password);
                     // Android 4.0 之后不能在主线程中请求HTTP请求
-                    new Thread(new Runnable(){
+                    Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                Map resmap = httpUtil.getLoginDate(usermap);
+                                Map resmap = httpUtil.getRegDate( usermap);
                                 System.out.println("resmap = " + resmap);
-                                if(resmap.get("code").equals("200")){
-//                                    match[0] =true;
+                                if(resmap.get("code").equals(200)){
+                                    match[0] =true;
+                                }else if(resmap.get("code").equals(300)){
+                                    match[0] =false;
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
-                    }).start();
+                    });
+                    thread.start();
+                    try {//等待线程调用结束
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(!match[0]){
+                        Toast.makeText(this,  "验证未通过，该用户名已存在", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     Intent intent2 = new Intent(this, MainActivity.class);
                     startActivity(intent2);
                     finish();
